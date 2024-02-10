@@ -4,20 +4,7 @@ from uuid import uuid4
 from datetime import datetime
 
 """
-This is a class called BaseModel. It represents a base model with common attributes and methods for other models to inherit from.
-
-Attributes:
-- id: a unique identifier generated using the uuid module
-- created_at: the date and time when the object is created, obtained using the datetime module
-- updated_at: the date and time when the object is last updated, obtained using the datetime module
-- name: a string attribute to store the name, default is None
-- my_number: a numerical attribute to store a number, default is None
-
-Methods:
-- to_dict(): returns a dictionary representation of the object
-- to_json(): returns a JSON string representation of the object
-- from_dict(data): updates the object's attributes using the provided dictionary data
-- from_json(json_str): updates the object's attributes using the provided JSON string data
+Defines the BaseModel class
 """
 class BaseModel:
     def __init__(self, *args, **kwargs):
