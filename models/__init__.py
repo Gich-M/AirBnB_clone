@@ -3,6 +3,7 @@ This code snippet initializes a FileStorage object and reloads its contents. The
 """
 from .engine.file_storage import FileStorage
 from .base_model import BaseModel
+from .user import User
 
 storage = FileStorage()
 storage.reload()
