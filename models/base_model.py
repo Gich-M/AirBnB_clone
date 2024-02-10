@@ -6,7 +6,10 @@ from datetime import datetime
 """
 Defines the BaseModel class
 """
+
+
 class BaseModel:
+
     def __init__(self, *args, **kwargs):
         """
         Initializes a new BaseModel instance
@@ -26,8 +29,7 @@ class BaseModel:
                 else:
                     self.__dict__[key] = value
         else:
-                models.storage.new(self)
-
+            models.storage.new(self)
 
     def to_dict(self):
         """
@@ -42,10 +44,10 @@ class BaseModel:
         obj_dict['__class__'] = self.__class__.__name__
         return obj_dict
 
-
     def save(self):
         """
-        Saves the object by updating the `updated_at` attribute to the current datetime.
+        Saves the object by updating the `updated_at`
+                attribute to the current datetime.
 
         Returns:
         None
@@ -61,4 +63,5 @@ class BaseModel:
         Returns:
         str: A string representation of the object.
         """
-        return "[{}] [{}] [{}])".format(self.__class__.__name__,self.id, self.__dict__)
+        return "[{}] [{}] [{}])".format(self.__class__.__name__,
+                                        self.id, self.__dict__)
