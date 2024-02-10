@@ -3,12 +3,9 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
-"""
-Defines the BaseModel class
-"""
-
 
 class BaseModel:
+    """Defines the BaseModel class."""
 
     def __init__(self, *args, **kwargs):
         """
