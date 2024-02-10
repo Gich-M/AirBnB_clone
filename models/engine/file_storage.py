@@ -3,7 +3,9 @@ import json
 import os
 from models.base_model import BaseModel
 
+
 class FileStorage:
+
     __file_path = "file.json"
     __objects = {}
 
@@ -12,7 +14,7 @@ class FileStorage:
         Returns the dictionary __objects
         """
         return FileStorage.__objects
-    
+
     def new(self, obj):
         """"
         Adds new objects __objects obj with key <obj_class_name>.id
@@ -26,8 +28,7 @@ class FileStorage:
         """
         with open(FileStorage.__file_path, 'w') as f:
             json.dump({key: value.to_dict() for key,
-                        value in FileStorage.__objects.items()}, f)
-
+                       value in FileStorage.__objects.items()}, f)
 
     def reload(self):
         """
