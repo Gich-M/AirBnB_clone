@@ -1,23 +1,46 @@
+#!/usr/bin/env python3
 import json
 import os
+from models.base_model import BaseModel
+
 class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        return self.__objects
+        """
+        Returns the dictionary __objects
+        """
+        return FileStorage.__objects
     
     def new(self, obj):
+        """"
+        Adds new objects __objects obj with key <obj_class_name>.id
+        """
         key = obj.__class__.__name__ + "." + obj.id
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
-        with open(self.__file_path, 'w') as f:
-            json.dump({k: v.to_dict() for k, v in self.__objects.items()}, f)
+        """
+        Serializes __objects to the JSON file __file_path.
+        """
+        with open(FileStorage.__file_path, 'w') as f:
+            json.dump({key: value.to_dict() for key,
+                        value in FileStorage.__objects.items()}, f)
+
 
     def reload(self):
-        if os.path.getsize(self.__file_path) > 0:
-            with open(self.__file_path, 'r') as f:
-                self.__objects = json.load(f)
-        else:
-            self.__objects = {}
+        """
+        Deserializes __objects from the JSON file __file_path.
+        """
+        try:
+            if os.path.getsize(self.__file_path) > 0:
+                with open(FileStorage.__file_path, 'r') as f:
+                    data = json.load(f)
+                    for key, value in data.items():
+                        obj = BaseModel(**value)
+                        FileStorage.__objects[key] = obj.to_dict()
+            else:
+                FileStorage.__objects = {}
+        except FileNotFoundError:
+            return FileStorage.__objects
