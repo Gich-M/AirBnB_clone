@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+"""Defines the BaseModel class."""
 import models
 from uuid import uuid4
 from datetime import datetime
 
 
 class BaseModel:
-    """Defines the BaseModel class."""
+    """The BaseModel of the HBNB project."""
 
     def __init__(self, *args, **kwargs):
         """
@@ -16,17 +17,29 @@ class BaseModel:
             **kwargs (dict): Key/value pairs of attributes
         """
         self.id = str(uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key in ['created_at', 'updated_at']:
-                    value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    self.__dict__[key] = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                 else:
                     self.__dict__[key] = value
         else:
             models.storage.new(self)
+
+    def save(self):
+        """
+        Saves the object by updating the `updated_at`
+                attribute to the current datetime.
+
+        Returns:
+        None
+        """
+        self.updated_at = datetime.now()
+        models.storage.save()
+
 
     def to_dict(self):
         """
@@ -41,17 +54,6 @@ class BaseModel:
         obj_dict['__class__'] = self.__class__.__name__
         return obj_dict
 
-    def save(self):
-        """
-        Saves the object by updating the `updated_at`
-                attribute to the current datetime.
-
-        Returns:
-        None
-        """
-        from . import storage
-        self.updated_at = datetime.now()
-        models.storage.save()
 
     def __str__(self):
         """
@@ -60,7 +62,7 @@ class BaseModel:
         Returns:
         str: A string representation of the object.
         """
-        return "[{}] [{}] [{}])".format(self.__class__.__name__,
+        return "[{}] [{}] [{}]".format(self.__class__.__name__,
                                         self.id, self.__dict__)
     
 
