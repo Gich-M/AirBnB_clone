@@ -62,4 +62,4 @@ class BaseModel:
         str: A string representation of the object.
         """
         clsname = self.__class__.__name__
-        return "[{}] [{}] [{}]".format(clsname, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(clsname, self.id, self.__dict__)
