@@ -44,13 +44,12 @@ class FileStorage:
         Deserializes __objects from the JSON file __file_path.
         """
         try:
-            if os.path.getsize(self.__file_path) > 0:
-                with open(FileStorage.__file_path, 'r') as f:
+            with open(FileStorage.__file_path) as f:
+                if os.stat(FileStorage.__file_path).st_size != 0:
                     data = json.load(f)
-                    for key, value in data.items():
-                        obj = BaseModel(**value)
-                        FileStorage.__objects[key] = obj.to_dict()
-            else:
-                FileStorage.__objects = {}
+                    for key in data.values():
+                        cls_name = key["__class__"]
+                        del key["__class__"]
+                        self.new(eval(cls_name)(**key))
         except FileNotFoundError:
-            return FileStorage.__objects
+            return
