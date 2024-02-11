@@ -29,16 +29,35 @@ class HBNBCommand(cmd.Cmd):
         """Do nothing when receiving an empty command."""
         pass
 
-    def default(self, args):
-        """This function is the default method for the interpreter."""
-
-        argdict = {
-            "all": self.do_all,
-            "show": self.do_show,
-            "destroy": self.do_destroy,
-            "count": self.do_count,
-            "update": self.do_update,
-        }
+    def default(self, arg):
+        """Default behavior for cmd module when input is invalid"""
+        arg_parts = arg.split('.')
+        if len(arg_parts) == 2:
+            clsname, command = arg_parts
+            clsname = clsname.strip()
+            command = command.strip().rstrip('()')
+            if clsname not in HBNBCommand.__classes:
+                print("** class doesn't exist **")
+                return False
+            if command not in ["all", "show", "destroy", "count", "update"]:
+                print("*** Unknown syntax: {}".format(arg))
+                return False
+            if command == "all":
+                self.do_all(clsname)
+            elif command == "show":
+                self.do_show("{} {}".format
+                             (clsname, arg[arg.index('(') + 1:]))
+            elif command == "destroy":
+                self.do_destroy("{} {}".format
+                                (clsname, arg[arg.index('(') + 1:]))
+            elif command == "count":
+                self.do_count(clsname)
+            elif command == "update":
+                self.do_update("{} {}".format
+                               (clsname, arg[arg.index('(') + 1:]))
+        else:
+            print("*** Unknown syntax: {}".format(arg))
+            return False
 
     def do_quit(self, args):
         """Quit command to exit the program"""
