@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Defines the FileStorage class."""
 import json
 import os
 from models.base_model import BaseModel
@@ -12,7 +13,11 @@ from models.amenity import Amenity
 
 class FileStorage:
     """
-    Defines the FileStorage class.
+    Represent a storage engine.
+
+    Attributes:
+        __file_path (str): The name of the file to save objects to.
+        __objects (dict): A dictionary of instanciated objects.
     """
 
     __file_path = "file.json"
