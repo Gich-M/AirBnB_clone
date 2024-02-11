@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Defines the FileStorage class."""
 import json
 import os
@@ -33,16 +33,17 @@ class FileStorage:
         """"
         Adds new objects __objects obj with key <obj_class_name>.id
         """
-        key = obj.__class__.__name__ + "." + obj.id
-        FileStorage.__objects[key] = obj
+        key = obj.__class__.__name__
+        FileStorage.__objects["{}.{}".format(key, obj.id)] = obj
 
     def save(self):
         """
         Serializes __objects to the JSON file __file_path.
         """
+        o_dict = FileStorage.__objects
+        objdict = {obj: o_dict[obj].to_dict() for obj in o_dict.keys()}
         with open(FileStorage.__file_path, 'w') as f:
-            json.dump({key: value.to_dict() for key,
-                       value in FileStorage.__objects.items()}, f)
+            json.dump(objdict, f)
 
     def reload(self):
         """
