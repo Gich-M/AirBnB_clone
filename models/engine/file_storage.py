@@ -51,7 +51,6 @@ class FileStorage:
         """
         try:
             with open(FileStorage.__file_path) as f:
-                if os.stat(FileStorage.__file_path).st_size != 0:
                     data = json.load(f)
                     for key in data.values():
                         cls_name = key["__class__"]
