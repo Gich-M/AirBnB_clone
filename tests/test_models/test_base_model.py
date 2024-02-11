@@ -117,7 +117,7 @@ class TestBaseModel_Save(unittest.TestCase):
 
 class TestBaseModel_To_dict(unittest.TestCase):
 
-    def test_returns_dictionary_with_all_attributes(self):
+    def test_returns_dict_with_all_attributes(self):
         base_model = BaseModel()
         base_model_dict = base_model.to_dict()
         self.assertIsInstance(base_model_dict, dict)
@@ -128,7 +128,7 @@ class TestBaseModel_To_dict(unittest.TestCase):
                          base_model.updated_at.isoformat())
         self.assertEqual(base_model_dict['__class__'], 'BaseModel')
 
-    def test_dictionary_contains_correct_time_values(self):
+    def test_dict_contains_correct_time_values(self):
         base_model = BaseModel()
         base_model_dict = base_model.to_dict()
         self.assertEqual(base_model_dict['created_at'],
@@ -136,7 +136,7 @@ class TestBaseModel_To_dict(unittest.TestCase):
         self.assertEqual(base_model_dict['updated_at'],
                          base_model.updated_at.isoformat())
 
-    def test_dictionary_contains_correct_class_attribute_value(self):
+    def test_dict_contains_correct_class_attribute_value(self):
         base_model = BaseModel()
         base_model_dict = base_model.to_dict()
         self.assertEqual(base_model_dict['__class__'], 'BaseModel')
