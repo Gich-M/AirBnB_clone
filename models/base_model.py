@@ -16,6 +16,7 @@ class BaseModel:
             *args (any): A dictionary
             **kwargs (dict): Key/value pairs of attributes
         """
+        tdat = '%Y-%m-%dT%H:%M:%S.%f'
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -23,7 +24,7 @@ class BaseModel:
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
-                    self.__dict__[key] = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    self.__dict__[key] = datetime.strptime(value, tdat)
                 else:
                     self.__dict__[key] = value
         else:
@@ -40,7 +41,6 @@ class BaseModel:
         self.updated_at = datetime.now()
         models.storage.save()
 
-
     def to_dict(self):
         """
         Returns a dictionary representation of the BaseModel instance.
@@ -54,7 +54,6 @@ class BaseModel:
         obj_dict['__class__'] = self.__class__.__name__
         return obj_dict
 
-
     def __str__(self):
         """
         Returns a string representation of the object.
@@ -62,7 +61,5 @@ class BaseModel:
         Returns:
         str: A string representation of the object.
         """
-        return "[{}] [{}] [{}]".format(self.__class__.__name__,
-                                        self.id, self.__dict__)
-    
-
+        clsname = self.__class__.__name__
+        return "[{}] [{}] [{}]".format(clsname, self.id, self.__dict__)
