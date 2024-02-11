@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Defines the FileStorage class."""
 import json
-import os
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -33,8 +32,8 @@ class FileStorage:
         """"
         Adds new objects __objects obj with key <obj_class_name>.id
         """
-        key = obj.__class__.__name__
-        FileStorage.__objects["{}.{}".format(key, obj.id)] = obj
+        oclsname = obj.__class__.__name__
+        FileStorage.__objects["{}.{}".format(oclsname, obj.id)] = obj
 
     def save(self):
         """
