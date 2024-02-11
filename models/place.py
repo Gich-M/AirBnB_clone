@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Defines the Place class."""
-from .base_model import BaseModel
+from models.base_model import BaseModel
 
 """
     Defines a place object.
