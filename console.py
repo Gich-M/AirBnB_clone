@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+"""Defines the HBNB console."""
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -40,20 +40,13 @@ class HBNBCommand(cmd.Cmd):
             "update": self.do_update,
         }
 
-    def quit(self):
-        """Quit command to exit the program"""
-        self.do_exit()
-        return True
-
-    do_quit = quit
-    do_EOF = quit
-
     def do_quit(self, args):
         """Quit command to exit the program"""
         return True
 
     def do_EOF(self, args):
         """EOF command to exit the program"""
+        print("")
         return True
 
     def do_create(self, args):
