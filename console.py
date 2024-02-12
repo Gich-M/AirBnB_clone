@@ -107,6 +107,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, args):
         """Deletes an instance based on the class name and id"""
         argl = parse(args)
+        objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
@@ -181,7 +182,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in eval(argl[2]).items():
                 if (key in obj.__class__.__dict__.keys() and
                         type(obj.__class__.__dict__[key]) in {str, int, float}):
-                    valtype = type(obj.__class__.__dict__[k])
+                    valtype = type(obj.__class__.__dict__[key])
                     obj.__dict__[key] = valtype(value)
                 else:
                     obj.__dict__[key] = value
