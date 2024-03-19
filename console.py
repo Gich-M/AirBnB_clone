@@ -13,6 +13,7 @@ import cmd
 from shlex import split
 import re
 
+
 def parse(arg):
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
@@ -29,6 +30,7 @@ def parse(arg):
         retl = [i.strip(",") for i in lexer]
         retl.append(curly_braces.group())
         return retl
+
 
 class HBNBCommand(cmd.Cmd):
     """Command interpreter for the HBNB project."""
@@ -50,12 +52,12 @@ class HBNBCommand(cmd.Cmd):
     def default(self, args):
         """Default behavior for cmd module when input is invalid"""
         argdict = {
-                "all": self.do_all,
-                "show": self.do_show,
-                "destroy": self.do_destroy,
-                "count": self.do_count,
-                "update": self.do_update,
-                }
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update,
+        }
         match = re.search(r"\.", args)
         if match is not None:
             argl = [args[:match.span()[0]], args[match.span()[1]:]]
@@ -180,13 +182,13 @@ class HBNBCommand(cmd.Cmd):
         elif type(eval(argl[2])) == dict:
             obj = objdict["{}.{}".format(argl[0], argl[1])]
             for key, value in eval(argl[2]).items():
-                if (key in obj.__class__.__dict__.keys() and
-                        type(obj.__class__.__dict__[key]) in {str, int, float}):
+                if (key in obj.__class__.__dict__.keys() and type(
+                        obj.__class__.__dict__[key]) in {str, int, float}):
                     valtype = type(obj.__class__.__dict__[key])
                     obj.__dict__[key] = valtype(value)
                 else:
                     obj.__dict__[key] = value
-    
+
         storage.save()
 
 
