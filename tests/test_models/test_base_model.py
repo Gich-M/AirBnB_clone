@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+#!/usr/bin/env python3
+#!/usr/bin/python3
 """Test BaseModel for expected behavior and documentation"""
 from datetime import datetime
 import inspect

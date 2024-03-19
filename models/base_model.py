@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+#!/usr/bin/env python3
+#!/usr/bin/python3
 """Defines the BaseModel class."""
 import models
 from uuid import uuid4
@@ -63,4 +65,3 @@ class BaseModel:
         """
         clsname = self.__class__.__name__
         return "[{}] ({}) {}".format(clsname, self.id, self.__dict__)
-
