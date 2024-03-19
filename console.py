@@ -81,7 +81,19 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it
-                    (to the JSON file) and prints the id"""
+            (to the JSON file) and prints the id"""
+        argl = parse(arg)
+        if len(argl) == 0:
+            print("** class name missing **")
+        elif argl[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        else:
+            print(eval(argl[0])().id)
+            storage.save()
+
+    def do_show(self, arg):
+        """Prints the string representation of an
+                instance based on the class name and id"""
         argl = parse(arg)
         objdict = storage.all()
         if len(argl) == 0:
@@ -91,25 +103,9 @@ class HBNBCommand(cmd.Cmd):
         elif len(argl) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(argl[0], argl[1]) not in objdict:
-            print("** no insatnce found **")
-        else:
-            print(objdict["{}.{}".format(argl[0], argl[1])])
-
-    def do_show(self, arg):
-        """Prints the string representation of an
-                instance based on the class name and id"""
-        argl = parse(arg)
-        objdict = storage.all()
-        if len(arg) == 0:
-            print("** class name missing **")
-        elif argl[0] not in HBNBCommand.__classes:
-            print("** class doesn't exist **")
-        elif len(argl) == 1:
-            print("** instance id missing **")
-        elif "{}.{}".format(argl[0], argl[1]) not in storage.all():
             print("** no instance found **")
         else:
-            del objdict["{}.{}".format(argl[0], argl[1])]
+            print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, args):
         """Deletes an instance based on the class name and id"""
@@ -153,9 +149,10 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def do_update(self, arg):
-        """Updates an instance based on
+        """Usage: update <class name> <id> <attribute name> "<attribute value>"
+        Updates an instance based on
                 the class name and id by adding or updating attribute"""
-        argl = parse(args)
+        argl = parse(arg)
         objdict = storage.all()
 
         if len(argl) == 0:
