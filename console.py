@@ -60,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
         }
         match = re.search(r"\.", arg)
         if match is not None:
-            argl = [args[:match.span()[0]], args[match.span()[1]:]]
+            argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
             match = re.search(r"\((.*?)\)", argl[1])
             if match is not None:
                 command = [argl[1][:match.span()[0]], match.group()[1:-1]]
@@ -100,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
                 instance based on the class name and id"""
         argl = parse(arg)
         objdict = storage.all()
-        if len(args) == 0:
+        if len(arg) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
